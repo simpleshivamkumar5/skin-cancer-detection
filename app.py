@@ -44,7 +44,41 @@ st.markdown("""
     padding-top: 2rem;
     padding-bottom: 3rem;
 }
-.hero {
+.hero h1 { color: white; font-size: 2.6rem; }
+
+/* Fix unreadable text on the light background */
+.stApp {
+    color: #243247;
+}
+
+.stApp p,
+.stApp li,
+.stApp label {
+    color: #243247;
+}
+
+.stApp h1,
+.stApp h2,
+.stApp h3,
+.stApp h4 {
+    color: #17324d !important;
+}
+
+/* Preserve white text inside the dark hero banner */
+.hero,
+.hero h1,
+.hero h2,
+.hero p {
+    color: #ffffff !important;
+}
+
+/* Keep sidebar text white */
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] label {
+    color: #ffffff !important;
+}
+
     background: linear-gradient(120deg, #12233f, #245b75);
     padding: 2.5rem;
     border-radius: 22px;
