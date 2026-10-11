@@ -1,5 +1,5 @@
 
-/* Improve readability on light backgrounds */
+
 .stApp {
     color: #243247;
 }
