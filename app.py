@@ -1,5 +1,8 @@
+
 import streamlit as st
 
+st.markdown("""
+<style>
 .stApp {
     color: #243247;
 }
@@ -31,4 +34,5 @@ section[data-testid="stSidebar"] span,
 section[data-testid="stSidebar"] label {
     color: #ffffff !important;
 }
-
+</style>
+""", unsafe_allow_html=True)
