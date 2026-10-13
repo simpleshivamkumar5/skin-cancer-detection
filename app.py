@@ -34,29 +34,113 @@ CLASS_INFO = {
 # --------------------------------------------------
 # STYLING
 # --------------------------------------------------
+
 st.markdown("""
 <style>
+/* Overall page */
 .stApp {
-    color: #243247;
+    background: #f3f7fc !important;
+    color: #172b4d !important;
 }
-.stApp p, .stApp li, .stApp label {
-    color: #243247;
+
+/* Main content */
+[data-testid="stAppViewContainer"] {
+    background: #f3f7fc !important;
 }
-.stApp h1, .stApp h2, .stApp h3 {
-    color: #17324d;
+
+[data-testid="stHeader"] {
+    background: transparent !important;
 }
+
+[data-testid="stMain"] p,
+[data-testid="stMain"] li,
+[data-testid="stMain"] label,
+[data-testid="stMain"] span {
+    color: #263b57;
+}
+
+[data-testid="stMain"] h1,
+[data-testid="stMain"] h2,
+[data-testid="stMain"] h3 {
+    color: #12304a !important;
+}
+
+/* Hero banner */
 .hero {
-    background: linear-gradient(120deg, #17324d, #287b8e);
-    padding: 28px;
-    border-radius: 14px;
-    color: white !important;
-    margin-bottom: 22px;
+    background: linear-gradient(120deg, #12304a, #087e8b);
+    padding: 32px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(18, 48, 74, 0.15);
 }
-.hero h1, .hero p {
-    color: white !important;
+
+.hero h1,
+.hero p {
+    color: #ffffff !important;
+}
+
+/* Metric cards */
+[data-testid="stMetric"] {
+    background: #ffffff !important;
+    border: 1px solid #dce6f1;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 4px 14px rgba(25, 55, 90, 0.07);
+}
+
+[data-testid="stMetricLabel"] p {
+    color: #536780 !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #087e8b !important;
+    font-weight: 700;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: #12304a !important;
+}
+
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #ffffff !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(120deg, #087e8b, #10a3a3);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 10px;
+    padding: 0.55rem 1.2rem;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    background: #075e68;
+    border: none;
+}
+
+/* Alerts */
+[data-testid="stAlert"] {
+    border-radius: 12px;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] {
+    background: #ffffff;
+    border: 1px dashed #9bb8cc;
+    border-radius: 12px;
+    padding: 12px;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # --------------------------------------------------
