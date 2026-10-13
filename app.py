@@ -138,6 +138,43 @@ st.markdown("""
     border-radius: 12px;
     padding: 12px;
 }
+
+/* Make the hero title and subtitle clearly visible */
+.hero,
+.hero h1,
+.hero h2,
+.hero p {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+/* Keep the hero title bright and readable */
+.hero h1 {
+    font-size: 2.5rem !important;
+    font-weight: 800 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Improve visibility of Streamlit toolbar icons */
+[data-testid="stToolbar"] button,
+[data-testid="stToolbar"] button svg {
+    color: #17324d !important;
+    fill: #17324d !important;
+    opacity: 1 !important;
+}
+
+/* Keep toolbar icons visible against the light page */
+[data-testid="stHeader"] {
+    background: #f3f7fc !important;
+}
+
+/* Improve visibility of the top-right menu */
+[data-testid="stMainMenu"] button,
+[data-testid="stMainMenu"] button svg {
+    color: #17324d !important;
+    fill: #17324d !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
