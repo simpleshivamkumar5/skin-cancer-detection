@@ -1,5 +1,4 @@
-    )
-
+    
     results = pd.DataFrame({
         "Metric": [
             "Test images",
