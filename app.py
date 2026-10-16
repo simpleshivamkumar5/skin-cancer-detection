@@ -451,7 +451,6 @@ elif page == "Model Evaluation":
         "means the model must not be used for clinical decisions."
     )
 
-
 # ----------------------------- ABOUT PROJECT -----------------------------
 elif page == "About Project":
 
@@ -465,6 +464,7 @@ elif page == "About Project":
 
     # 1. Project overview
     section_label("01 · PROJECT OVERVIEW")
+
     st.markdown("""
     <div class="panel">
         <h3>Bringing deep learning into medical-image research</h3>
@@ -487,6 +487,7 @@ elif page == "About Project":
         </p>
     </div>
     """, unsafe_allow_html=True)
+
 
     st.write("")
 
