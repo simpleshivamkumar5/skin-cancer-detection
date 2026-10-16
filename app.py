@@ -912,7 +912,7 @@ elif page == "About Project":
     st.caption(
         "Project team: Shivam Kumar, Aryan Rawat, Aditya Chauhan and Zaid."
     )
-
+st.caption(
         "Dataset performance does not establish clinical safety. "
         "Performance can vary across devices, populations, image "
         "types and clinical settings. This prototype is not intended "
