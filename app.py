@@ -181,6 +181,7 @@ st.markdown("""
 
 
 
+
 # --------------------------------------------------
 # MODEL LOADING
 # --------------------------------------------------
@@ -192,6 +193,32 @@ def load_model():
         )
     return tf.keras.models.load_model(
         MODEL_PATH, compile=False
+    )
+    # --------- HELPER FUNCTIONS ---------
+
+def hero(eyebrow, title, subtitle, pill=None):
+    pill_html = (
+        f'<div class="hero-pill">{pill}</div>'
+        if pill else ""
+    )
+
+    st.markdown(
+        f"""
+        <div class="hero">
+            <div class="eyebrow">{eyebrow}</div>
+            <h1>{title}</h1>
+            <p>{subtitle}</p>
+            {pill_html}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+def section_label(text):
+    st.markdown(
+        f'<div class="section-kicker">{text}</div>',
+        unsafe_allow_html=True
     )
 
 
