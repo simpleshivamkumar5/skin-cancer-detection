@@ -909,11 +909,11 @@ elif page == "About Project":
         <div class="hero-pill">Research prototype · Not a medical device</div>
     </div>
     """, unsafe_allow_html=True)
-
     st.caption(
         "Project team: Shivam Kumar, Aryan Rawat, Aditya Chauhan and Zaid."
     )
-st.caption(
+
+    st.warning(
         "Dataset performance does not establish clinical safety. "
         "Performance can vary across devices, populations, image "
         "types and clinical settings. This prototype is not intended "
