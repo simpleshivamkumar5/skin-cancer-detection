@@ -1,22 +1,22 @@
 
 import streamlit as st
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 import tensorflow as tf
-from PIL import Image
-from pathlib import Path
+import os
 
-# --------------------------------------------------
-# PAGE CONFIGURATION
-# --------------------------------------------------
-st.set_page_config(
-    page_title="Skin Cancer Detection",
-    page_icon="🔬",
-    layout="wide"
-)
+@st.cache_resource
+def load_model():
+    model_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "best_skin_cancer_model.keras"
+    )
 
-MODEL_PATH = "best_skin_cancer_model.keras"
+    if not os.path.exists(model_path):
+        st.error("Model file not found!")
+        return None
+
+    return tf.keras.models.load_model(model_path)
+
+model = load_model()
 IMG_SIZE = (224, 224)
 VALIDATION_ACCURACY = "76.85%"
 
