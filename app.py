@@ -1,22 +1,21 @@
 
+import os
+from pathlib import Path
+
 import streamlit as st
 import tensorflow as tf
-import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from PIL import Image
 
-@st.cache_resource
-def load_model():
-    model_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        "best_skin_cancer_model.keras"
-    )
+# --------------------------------------------------
+# PROJECT SETTINGS
+# --------------------------------------------------
 
-    if not os.path.exists(model_path):
-        st.error("Model file not found!")
-        return None
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "best_skin_cancer_model.keras"
 
-    return tf.keras.models.load_model(model_path)
-
-model = load_model()
 IMG_SIZE = (224, 224)
 VALIDATION_ACCURACY = "76.85%"
 
@@ -187,14 +186,22 @@ st.markdown("""
 # --------------------------------------------------
 @st.cache_resource
 def load_model():
-    if not MODEL_PATH.exists():
+    """Load the trained Keras model once and cache it."""
+    if not MODEL_PATH.is_file():
         raise FileNotFoundError(
-            f"Model file not found: {MODEL_PATH.name}"
+            f"Model file not found: {MODEL_PATH}. "
+            "Make sure best_skin_cancer_model.keras is in the same folder as app.py."
         )
+
     return tf.keras.models.load_model(
-        MODEL_PATH, compile=False
+        str(MODEL_PATH),
+        compile=False
     )
-    # --------- HELPER FUNCTIONS ---------
+
+
+# --------------------------------------------------
+# HELPER FUNCTIONS
+# --------------------------------------------------
 
 def hero(eyebrow, title, subtitle, pill=None):
     pill_html = (
@@ -334,20 +341,20 @@ elif page == "AI Prediction":
                 with st.spinner("Loading model and analysing image..."):
                     model = load_model()
 
+                    # Prepare the uploaded image as a single RGB image batch.
                     resized = image.resize(IMG_SIZE)
-                    image_array = np.asarray(
-                        resized, dtype=np.float32
-                    )
+                    image_array = np.asarray(resized, dtype=np.float32)
                     batch = np.expand_dims(image_array, axis=0)
 
-                    predictions = model.predict(
-                        batch, verbose=0
-                    )[0]
+                    # Run model inference.
+                    raw_predictions = model.predict(batch, verbose=0)
+                    predictions = np.asarray(raw_predictions).squeeze()
 
-                    if len(predictions) != len(CLASS_NAMES):
+                    if predictions.ndim != 1 or predictions.size != len(CLASS_NAMES):
                         st.error(
-                            "The model output does not match "
-                            "the seven expected classes."
+                            "The model output does not contain exactly "
+                            "seven class scores. Check that this is the "
+                            "correct seven-class model checkpoint."
                         )
                     else:
                         best_index = int(np.argmax(predictions))
@@ -355,13 +362,13 @@ elif page == "AI Prediction":
 
                         st.subheader("Model output")
                         st.write(
-                            f"Predicted dataset class: **{predicted_class}**"
+                            f"Predicted dataset class: **{predicted_class.upper()}**"
                         )
                         st.write(CLASS_INFO[predicted_class])
 
                         st.caption(
-                            "Scores are model outputs, not validated "
-                            "medical probabilities or a diagnosis."
+                            "Scores are raw model outputs. They are not "
+                            "validated medical probabilities or a diagnosis."
                         )
 
                         score_df = pd.DataFrame({
@@ -369,7 +376,7 @@ elif page == "AI Prediction":
                             "Class description": [
                                 CLASS_INFO[c] for c in CLASS_NAMES
                             ],
-                            "Model score": predictions
+                            "Model score": predictions.astype(float)
                         }).sort_values(
                             "Model score", ascending=False
                         )
@@ -377,13 +384,11 @@ elif page == "AI Prediction":
                         st.dataframe(
                             score_df,
                             hide_index=True,
-                            width="stretch"
+                            use_container_width=True
                         )
 
                         st.bar_chart(
-                            score_df.set_index("Dataset class")[
-                                "Model score"
-                            ]
+                            score_df.set_index("Dataset class")["Model score"]
                         )
 
         except Exception as error:
@@ -426,7 +431,7 @@ elif page == "Model Evaluation":
         ]
     })
 
-    st.dataframe(results, hide_index=True, width="stretch")
+    st.dataframe(results, hide_index=True, use_container_width=True)
     st.info(
         "Experiment 4 V2 validation accuracy: 76.85%. This is reported separately "
         "because validation accuracy must not be presented as test accuracy."
