@@ -16,7 +16,7 @@ st.set_page_config(
     layout="wide"
 )
 
-MODEL_PATH = Path(__file__).parent / "experiment4_finetuned_v2.keras"
+MODEL_PATH = "best_skin_cancer_model.keras"
 IMG_SIZE = (224, 224)
 VALIDATION_ACCURACY = "76.85%"
 
